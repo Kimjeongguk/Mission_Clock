@@ -13,6 +13,8 @@
 		3519EFFE25B560D4001FE7B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3519EFFC25B560D4001FE7B6 /* Main.storyboard */; };
 		3519F00025B560D5001FE7B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3519EFFF25B560D5001FE7B6 /* Assets.xcassets */; };
 		3519F00325B560D5001FE7B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3519F00125B560D5001FE7B6 /* LaunchScreen.storyboard */; };
+		3579E4D825B68FC6006BB90F /* ClockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3579E4D725B68FC6006BB90F /* ClockModel.swift */; };
+		3579E4DB25B691DF006BB90F /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3579E4DA25B691DF006BB90F /* WeekView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		3519EFFF25B560D5001FE7B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3519F00225B560D5001FE7B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3519F00425B560D5001FE7B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3579E4D725B68FC6006BB90F /* ClockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockModel.swift; sourceTree = "<group>"; };
+		3579E4DA25B691DF006BB90F /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				3519EFF825B560D4001FE7B6 /* SceneDelegate.swift */,
 				3519EFFA25B560D4001FE7B6 /* ViewController.swift */,
 				3519EFFC25B560D4001FE7B6 /* Main.storyboard */,
+				3579E4DA25B691DF006BB90F /* WeekView.swift */,
+				3579E4D725B68FC6006BB90F /* ClockModel.swift */,
 				3519EFFF25B560D5001FE7B6 /* Assets.xcassets */,
 				3519F00125B560D5001FE7B6 /* LaunchScreen.storyboard */,
 				3519F00425B560D5001FE7B6 /* Info.plist */,
@@ -137,6 +143,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3579E4D825B68FC6006BB90F /* ClockModel.swift in Sources */,
+				3579E4DB25B691DF006BB90F /* WeekView.swift in Sources */,
 				3519EFFB25B560D4001FE7B6 /* ViewController.swift in Sources */,
 				3519EFF725B560D4001FE7B6 /* AppDelegate.swift in Sources */,
 				3519EFF925B560D4001FE7B6 /* SceneDelegate.swift in Sources */,
