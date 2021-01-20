@@ -12,10 +12,12 @@ class ClockModel: NSObject {
     var title: String
     var ampm: String
     var time: String
+    var week: Int
     
-    init(title: String, ampm: String, time: String) {
+    init(title: String, ampm: String, time: String, week: Int) {
         self.title = title
         self.ampm = ampm
         self.time = time
+        self.week = week
     }
 }
