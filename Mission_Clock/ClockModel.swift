@@ -7,14 +7,21 @@
 
 import UIKit
 
-class ClockModel: NSObject {
+struct ClockModel {
 
     var title: String
     var ampm: String
     var time: String
-    var week: Int
+    var week: WeekView
     
-    init(title: String, ampm: String, time: String, week: Int) {
+    init(){
+        self.title = ""
+        self.ampm = ""
+        self.time = "0 : 0"
+        self.week = WeekView()
+    }
+    
+    init(title: String, ampm: String, time: String, week: WeekView) {
         self.title = title
         self.ampm = ampm
         self.time = time

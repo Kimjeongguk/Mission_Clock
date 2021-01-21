@@ -9,14 +9,26 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet var clockTableView: UITableView!
     var clockList: [ClockModel] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let dummy = ClockModel.init(title: "test", ampm: "AM", time: "10:10", week: 0)
+        let dummy = ClockModel.init(title: "test", ampm: "오전", time: "10:10", week: WeekView())
         clockList.append(dummy)
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editshowDetail"{
+            let detailVC = segue.destination as! ClockDetailViewController
+            let selectedCell = sender as! ClockCell
+            if let seletedIndexPath = clockTableView.indexPath(for: selectedCell){
+                detailVC.clockModel = clockList[seletedIndexPath.row]
+            }
+        }else if segue.identifier == "addshowDetail"{
+            
+        }
+    }
 
 }
 
@@ -36,8 +48,9 @@ extension ViewController: UITableViewDataSource{
         clockCell.titleLabel.text = clockList[indexPath.row].title
         clockCell.apmLabel.text = clockList[indexPath.row].ampm
         clockCell.clockLabel.text = clockList[indexPath.row].time
-        clockCell.weekView.num = clockList[indexPath.row].week
+        
         clockCell.weekView.isUserInteractionEnabled = false
+        clockCell.weekView = clockList[indexPath.row].week
         
         return clockCell
     }
