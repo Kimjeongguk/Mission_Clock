@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let dummy = ClockModel.init(title: "test", ampm: "오전", time: "10:10", week: WeekView())
+        let dummy = ClockModel.init(ampm: "오후", time: "3:33", week: WeekView())
         clockList.append(dummy)
     }
     
@@ -27,6 +27,13 @@ class ViewController: UIViewController {
             }
         }else if segue.identifier == "addshowDetail"{
             
+        }
+    }
+    
+    @IBAction func unwindToClockList(sender: UIStoryboardSegue){
+        if let detailVC = sender.source as? ClockDetailViewController{
+            clockList.append(detailVC.clockModel)
+            self.clockTableView.reloadData()
         }
     }
 
@@ -45,7 +52,6 @@ extension ViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let clockCell = tableView.dequeueReusableCell(withIdentifier: "clockCell", for: indexPath) as! ClockCell
-        clockCell.titleLabel.text = clockList[indexPath.row].title
         clockCell.apmLabel.text = clockList[indexPath.row].ampm
         clockCell.clockLabel.text = clockList[indexPath.row].time
         

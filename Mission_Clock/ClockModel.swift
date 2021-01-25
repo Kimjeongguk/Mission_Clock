@@ -9,20 +9,20 @@ import UIKit
 
 struct ClockModel {
 
-    var title: String
+    
     var ampm: String
     var time: String
     var week: WeekView
     
     init(){
-        self.title = ""
+        
         self.ampm = ""
-        self.time = "0 : 0"
+        self.time = ""
         self.week = WeekView()
     }
     
-    init(title: String, ampm: String, time: String, week: WeekView) {
-        self.title = title
+    init(ampm: String, time: String, week: WeekView) {
+        
         self.ampm = ampm
         self.time = time
         self.week = week

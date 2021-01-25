@@ -9,8 +9,6 @@ import UIKit
 
 class ClockDetailViewController: UIViewController {
 
-    
-    @IBOutlet var titlrField: UITextField!
     @IBOutlet var weekView: WeekView!
     @IBOutlet var pickerView: UIDatePicker!
     
@@ -19,28 +17,44 @@ class ClockDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        titlrField.text = clockModel.title
         weekView = clockModel.week
-        var date = Date.init()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:m"
-        let someDateTime = formatter.date(from: "10:10")
+
+        var ampm = ""
+        if clockModel.ampm == "오전"{
+            ampm = "AM"
+        }else if clockModel.ampm == "오후"{
+            ampm = "PM"
+        }
         
-        pickerView.setDate(<#T##date: Date##Date#>, animated: false)
-        let formatterPeriod = DateFormatter()
-        formatterPeriod.dateStyle = .none
-        let formatterHour = DateFormatter()
-        formatterHour.dateStyle = .short
+        let dateString = "\(ampm) \(clockModel.time)"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "a h:m"
+        if let date = dateFormatter.date(from: dateString){
+            pickerView.setDate(date, animated: false)
+        }
         
     }
     
 
-    @IBAction func dismissView(_ sender: Any) {
+    @IBAction func dismissView(_ sender: Any) { //취소후 뒤로가기
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func dataPicker(_ sender: Any) {
+    
+    @IBAction func saveButton(_ sender: Any) { // 데이터 저장해서 리스트에 추가
+        let formatter = DateFormatter()
+        formatter.dateFormat = "a"
+        clockModel.ampm = formatter.string(from: pickerView.date) == "AM" ? "오전" : "오후"
+
+        formatter.dateFormat = "h:m"
+        clockModel.time = formatter.string(from: pickerView.date)
+        
+        clockModel.week = weekView
+        
+        self.performSegue(withIdentifier: "toClockList", sender: self)
+    }
+    
+    @IBAction func dataPicker(_ sender: Any) { //datepickerview에 값저장
         let datePickerView = sender
         
         pickerView = datePickerView as! UIDatePicker
