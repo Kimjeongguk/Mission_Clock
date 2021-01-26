@@ -6,15 +6,21 @@
 //
 
 import UIKit
+//
+//protocol weekViewDelegate {
+//    func weekStatusChanged()
+//}
 
 class WeekView: UIStackView {
 
+//    var delegate: weekViewDelegate?
+    
     private var weekButtons: [UIButton] = []
     
-//    public var check = [false, false, false, false, false, false, false]
-    private var num = 0{
+    public var weekDate = [false, false, false, false, false, false, false]{
         didSet{
-            updateButtonState()
+//            delegate?.weekStatusChanged()
+            setUpWeekDate()
         }
     }
     
@@ -29,7 +35,7 @@ class WeekView: UIStackView {
     
     func setupButton(){
         
-        self.spacing = 3
+        self.spacing = 5
         for index in 0..<7{
             
             let button = UIButton()
@@ -49,10 +55,12 @@ class WeekView: UIStackView {
     }
     
     @objc func clickButton(sender: UIButton){
-        num = sender.tag
+        weekDate[sender.tag] = !weekDate[sender.tag]
+        
     }
-
-    func updateButtonState(){
-        weekButtons[num].isSelected = !weekButtons[num].isSelected
+    func setUpWeekDate(){
+        for i in 0..<7{
+            weekButtons[i].isSelected = weekDate[i]
+        }
     }
 }

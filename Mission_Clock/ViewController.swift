@@ -13,8 +13,7 @@ class ViewController: UIViewController {
     var clockList: [ClockModel] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let dummy = ClockModel.init(ampm: "오후", time: "3:33", week: WeekView())
+        let dummy = ClockModel.init(ampm: "오후", time: "3:33", week: [true,true,true,true,true,true,true])
         clockList.append(dummy)
     }
     
@@ -25,18 +24,74 @@ class ViewController: UIViewController {
             if let seletedIndexPath = clockTableView.indexPath(for: selectedCell){
                 detailVC.clockModel = clockList[seletedIndexPath.row]
             }
+            
         }else if segue.identifier == "addshowDetail"{
             
         }
     }
     
+    var isEditMode = false
+    @IBAction func doEdit(_ sender: Any) {
+        isEditMode = !isEditMode
+        clockTableView.setEditing(isEditMode, animated: true) //테이블뷰 편집기능
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            clockList.remove(at: indexPath.row)
+            clockTableView.deleteRows(at: [indexPath], with: .automatic)
+            saveClocks()
+        }
+    }
     @IBAction func unwindToClockList(sender: UIStoryboardSegue){
-        if let detailVC = sender.source as? ClockDetailViewController{
+        guard let detailVC = sender.source as? ClockDetailViewController else{
+            return
+        }
+        if let selectedIndexPath = self.clockTableView.indexPathForSelectedRow{
+            clockList[selectedIndexPath.row] = detailVC.clockModel
+            self.clockTableView.reloadRows(at: [selectedIndexPath], with: .none) // 테이블뷰에서 선택한 항목만 갱신
+//            self.clockTableView.deselectRow(at: selectedIndexPath, animated: true) //선택한 항목의 표시를 제거하는것 근데 reload하면 자동으로 사라져서 여기선 불필요
+        }else{
             clockList.append(detailVC.clockModel)
             self.clockTableView.reloadData()
         }
+        
+        saveClocks()
+    }
+    
+    func saveClocks(){ //archive 방식
+        
+        DispatchQueue.global().async {
+        
+            let documentDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first
+            
+            guard let archiveURL = documentDirectory?.appendingPathComponent("clocks") else{
+                return
+            }
+            
+            do{
+                let archiveDate = try NSKeyedArchiver.archivedData(withRootObject: self.clockList, requiringSecureCoding: true)
+                try archiveDate.write(to: archiveURL)
+            }catch{
+                
+            }
+        }
     }
 
+    func loadClocks() -> [ClockModel]? {
+        let documentDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first
+        
+        guard let archiveURL = documentDirectory?.appendingPathComponent("clocks") else{
+            return nil
+        }
+        guard let codeedData = try? Data(contentsOf: archiveURL) else{
+            return nil
+        }
+        guard let unarchiveData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(codeedData) else{
+            return nil
+        }
+        return unarchiveData as? [ClockModel]
+    }
 }
 
 extension ViewController: UITableViewDelegate{
@@ -56,7 +111,7 @@ extension ViewController: UITableViewDataSource{
         clockCell.clockLabel.text = clockList[indexPath.row].time
         
         clockCell.weekView.isUserInteractionEnabled = false
-        clockCell.weekView = clockList[indexPath.row].week
+        clockCell.weekView.weekDate = clockList[indexPath.row].week
         
         return clockCell
     }

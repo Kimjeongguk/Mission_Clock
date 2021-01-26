@@ -35,7 +35,6 @@
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NGx-xe-tfu" customClass="WeekView" customModule="Mission_Clock" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="82" width="310" height="26"/>
-                                                    <color key="backgroundColor" red="0.99953407049999998" green="0.98835557699999999" blue="0.47265523669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="00 : 00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CEt-BV-5I8">
                                                     <rect key="frame" x="101" y="25" width="109.5" height="42"/>
@@ -87,6 +86,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="A91-Av-2Ev">
+                        <barButtonItem key="leftBarButtonItem" title="편집" id="fIG-g2-7pH">
+                            <connections>
+                                <action selector="doEdit:" destination="BYZ-38-t0r" id="dYd-pq-GbD"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="5c8-JX-jjE">
                             <connections>
                                 <segue destination="Jjo-7i-68K" kind="show" identifier="addshowDetail" id="xNR-uS-8EV"/>

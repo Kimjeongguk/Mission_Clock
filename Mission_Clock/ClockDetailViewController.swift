@@ -17,7 +17,9 @@ class ClockDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        weekView = clockModel.week
+//        weekView.delegate = self
+        
+        weekView.weekDate = clockModel.week
 
         var ampm = ""
         if clockModel.ampm == "오전"{
@@ -49,7 +51,7 @@ class ClockDetailViewController: UIViewController {
         formatter.dateFormat = "h:m"
         clockModel.time = formatter.string(from: pickerView.date)
         
-        clockModel.week = weekView
+        clockModel.week = weekView.weekDate
         
         self.performSegue(withIdentifier: "toClockList", sender: self)
     }
@@ -62,3 +64,10 @@ class ClockDetailViewController: UIViewController {
     }
     
 }
+
+//extension ClockDetailViewController: weekViewDelegate{
+//    func weekStatusChanged() {
+//
+//    }
+//
+//}
