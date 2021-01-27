@@ -10,21 +10,43 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet var clockTableView: UITableView!
+    
+    
     var clockList: [ClockModel] = []
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        let dummy = ClockModel.init(ampm: "오후", time: "3:33", week: [true,true,true,true,true,true,true])
-        clockList.append(dummy)
+        let notificationCenter = NotificationCenter.default
+            notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
+        let notificationCenter = NotificationCenter.default
+            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
+
+        
+        if let loadClocks = loadClocks(){
+            self.clockList = loadClocks
+        }
+//        let dummy = ClockModel.init(ampm: "오후", time: "3:33", week: [true,true,true,true,true,true,true])
+//        clockList.append(dummy)
+        
+    }
+    @objc func appMovedToForeground() {
+        print("App moved to ForeGround!")
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        if let selectedIndexRow = self.clockTableView.indexPathForSelectedRow{
+            self.clockTableView.deselectRow(at: selectedIndexRow, animated: true)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editshowDetail"{
             let detailVC = segue.destination as! ClockDetailViewController
             let selectedCell = sender as! ClockCell
-            if let seletedIndexPath = clockTableView.indexPath(for: selectedCell){
-                detailVC.clockModel = clockList[seletedIndexPath.row]
+            if let selectedIndexPath = clockTableView.indexPath(for: selectedCell){
+                detailVC.clockModel = clockList[selectedIndexPath.row]
+//                self.clockTableView.deselectRow(at: selectedIndexPath, animated: true)
             }
-            
         }else if segue.identifier == "addshowDetail"{
             
         }
@@ -43,7 +65,7 @@ class ViewController: UIViewController {
             saveClocks()
         }
     }
-    @IBAction func unwindToClockList(sender: UIStoryboardSegue){
+    @IBAction func unwindToClockList(sender: UIStoryboardSegue){ //toclocklist로 반환받았을때 실행됨
         guard let detailVC = sender.source as? ClockDetailViewController else{
             return
         }
@@ -51,9 +73,11 @@ class ViewController: UIViewController {
             clockList[selectedIndexPath.row] = detailVC.clockModel
             self.clockTableView.reloadRows(at: [selectedIndexPath], with: .none) // 테이블뷰에서 선택한 항목만 갱신
 //            self.clockTableView.deselectRow(at: selectedIndexPath, animated: true) //선택한 항목의 표시를 제거하는것 근데 reload하면 자동으로 사라져서 여기선 불필요
+            
         }else{
             clockList.append(detailVC.clockModel)
             self.clockTableView.reloadData()
+            
         }
         
         saveClocks()
@@ -73,7 +97,7 @@ class ViewController: UIViewController {
                 let archiveDate = try NSKeyedArchiver.archivedData(withRootObject: self.clockList, requiringSecureCoding: true)
                 try archiveDate.write(to: archiveURL)
             }catch{
-                
+                print("애러 ===>> \(error)")
             }
         }
     }
@@ -115,6 +139,7 @@ extension ViewController: UITableViewDataSource{
         
         return clockCell
     }
-    
-    
 }
+
+
+

@@ -39,6 +39,7 @@ class ClockDetailViewController: UIViewController {
     
 
     @IBAction func dismissView(_ sender: Any) { //취소후 뒤로가기
+//        self.performSegue(withIdentifier: "toClockList", sender: self)   //cell 클릭해서들어와서 취소누르면 이걸로
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -64,10 +65,3 @@ class ClockDetailViewController: UIViewController {
     }
     
 }
-
-//extension ClockDetailViewController: weekViewDelegate{
-//    func weekStatusChanged() {
-//
-//    }
-//
-//}

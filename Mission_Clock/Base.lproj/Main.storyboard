@@ -43,7 +43,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZoN-oG-r5F">
-                                                    <rect key="frame" x="340" y="25" width="51" height="68"/>
+                                                    <rect key="frame" x="340" y="45" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -52,12 +52,11 @@
                                                 <constraint firstAttribute="bottom" secondItem="NGx-xe-tfu" secondAttribute="bottom" constant="10" id="3LI-C5-qw9"/>
                                                 <constraint firstItem="Pu9-ED-gtT" firstAttribute="leading" secondItem="FNS-K2-Hez" secondAttribute="leading" constant="20" id="69h-xl-viB"/>
                                                 <constraint firstItem="CEt-BV-5I8" firstAttribute="top" secondItem="FNS-K2-Hez" secondAttribute="top" constant="25" id="6uP-RU-WB3"/>
-                                                <constraint firstAttribute="bottom" secondItem="ZoN-oG-r5F" secondAttribute="bottom" constant="25" id="Cke-T8-Oun"/>
                                                 <constraint firstItem="NGx-xe-tfu" firstAttribute="top" secondItem="Pu9-ED-gtT" secondAttribute="bottom" constant="15" id="JG9-17-hs8"/>
                                                 <constraint firstItem="ZoN-oG-r5F" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NGx-xe-tfu" secondAttribute="trailing" constant="10" id="QJb-LK-bog"/>
-                                                <constraint firstItem="ZoN-oG-r5F" firstAttribute="top" secondItem="FNS-K2-Hez" secondAttribute="top" constant="25" id="UHQ-oz-6uc"/>
                                                 <constraint firstAttribute="trailing" secondItem="ZoN-oG-r5F" secondAttribute="trailing" constant="25" id="Uc9-UH-HVI"/>
                                                 <constraint firstItem="NGx-xe-tfu" firstAttribute="leading" secondItem="FNS-K2-Hez" secondAttribute="leading" constant="20" id="VXT-Ro-VzH"/>
+                                                <constraint firstItem="ZoN-oG-r5F" firstAttribute="top" secondItem="FNS-K2-Hez" secondAttribute="top" constant="45" id="koA-gn-khh"/>
                                                 <constraint firstItem="NGx-xe-tfu" firstAttribute="top" secondItem="CEt-BV-5I8" secondAttribute="bottom" constant="15" id="tFk-rb-WZS"/>
                                                 <constraint firstItem="ZoN-oG-r5F" firstAttribute="leading" secondItem="NGx-xe-tfu" secondAttribute="trailing" priority="750" constant="10" id="wGb-Gf-TQo"/>
                                             </constraints>
@@ -65,6 +64,7 @@
                                         <connections>
                                             <outlet property="apmLabel" destination="Pu9-ED-gtT" id="RfD-ke-hXD"/>
                                             <outlet property="clockLabel" destination="CEt-BV-5I8" id="5fI-4e-Trf"/>
+                                            <outlet property="switchButton" destination="ZoN-oG-r5F" id="VtB-9K-Gvp"/>
                                             <outlet property="weekView" destination="NGx-xe-tfu" id="034-ok-S6o"/>
                                             <segue destination="Jjo-7i-68K" kind="show" identifier="editshowDetail" id="Epg-v1-WJY"/>
                                         </connections>

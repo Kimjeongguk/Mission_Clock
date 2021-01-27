@@ -10,9 +10,9 @@ import UIKit
 class ClockCell: UITableViewCell {
 
     @IBOutlet var weekView: WeekView!
-    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var apmLabel: UILabel!
     @IBOutlet var clockLabel: UILabel!
+    @IBOutlet var switchButton: UISwitch!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,6 +21,7 @@ class ClockCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
+//        switchButton.transform = CGAffineTransform(scaleX: 1.5, y: 1.2)
         // Configure the view for the selected state
     }
 
