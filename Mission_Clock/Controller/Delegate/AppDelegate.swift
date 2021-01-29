@@ -38,7 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            print("background")
 //        }
 //    }
-    
+    func applicationWillResignActive(_ application: UIApplication) {
+        print("이해중...")
+    }
     func applicationDidEnterBackground(_ application: UIApplication) {
         print("background")
     }

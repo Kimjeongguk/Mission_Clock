@@ -65,3 +65,31 @@ class ClockDetailViewController: UIViewController {
     }
     
 }
+
+extension ClockDetailViewController: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
+    }
+}
+extension ClockDetailViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var soundCell = tableView.dequeueReusableCell(withIdentifier: "setting")
+        if soundCell == nil {
+            soundCell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "setting")
+        }
+        if indexPath.section == 0 {
+            
+            if indexPath.row == 0 {
+                soundCell!.textLabel!.text = "Sound"
+                soundCell!.detailTextLabel!.text = clockModel.sound
+                soundCell!.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
+            }
+           
+        }
+        return soundCell!
+    }
+}

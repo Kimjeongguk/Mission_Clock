@@ -35,13 +35,16 @@ class WeekView: UIStackView {
     
     func setupButton(){
         
-        self.spacing = 5
+        self.spacing = (self.bounds.size.width - (self.bounds.size.height * 7)) / 8
+        
+        
+        
         for index in 0..<7{
             
             let button = UIButton()
             
-            button.widthAnchor.constraint(equalToConstant: 25).isActive = true
-            button.heightAnchor.constraint(equalToConstant: 25).isActive = true
+            button.widthAnchor.constraint(equalToConstant: self.bounds.height).isActive = true
+            button.heightAnchor.constraint(equalToConstant: self.bounds.height).isActive = true
             
             button.tag = index
             button.addTarget(self, action: #selector(clickButton), for: .touchUpInside)

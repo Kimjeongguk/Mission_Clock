@@ -20,9 +20,6 @@ class ClockCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-//        switchButton.transform = CGAffineTransform(scaleX: 1.5, y: 1.2)
-        // Configure the view for the selected state
     }
 
 }

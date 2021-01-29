@@ -18,9 +18,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let notificationCenter = NotificationCenter.default
-            notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
-        let notificationCenter = NotificationCenter.default
-            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+
+//        let notificationCenter = NotificationCenter.default
+//            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
 
         
         if let loadClocks = loadClocks(){
@@ -30,8 +31,8 @@ class ViewController: UIViewController {
 //        clockList.append(dummy)
         
     }
-    @objc func appMovedToForeground() {
-        print("App moved to ForeGround!")
+    @objc func appMovedToBackground() {
+        print("App moved to Background!")
     }
     override func viewWillAppear(_ animated: Bool) {
         if let selectedIndexRow = self.clockTableView.indexPathForSelectedRow{
@@ -136,6 +137,7 @@ extension ViewController: UITableViewDataSource{
         
         clockCell.weekView.isUserInteractionEnabled = false
         clockCell.weekView.weekDate = clockList[indexPath.row].week
+
         
         return clockCell
     }

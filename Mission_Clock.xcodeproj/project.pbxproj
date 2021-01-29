@@ -13,11 +13,13 @@
 		3519EFFE25B560D4001FE7B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3519EFFC25B560D4001FE7B6 /* Main.storyboard */; };
 		3519F00025B560D5001FE7B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3519EFFF25B560D5001FE7B6 /* Assets.xcassets */; };
 		3519F00325B560D5001FE7B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3519F00125B560D5001FE7B6 /* LaunchScreen.storyboard */; };
+		35784EDE25C3F25C0082665E /* MissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35784EDD25C3F25C0082665E /* MissionViewController.swift */; };
 		357909BB25C1474C00C84B76 /* mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 357909BA25C1474C00C84B76 /* mp3 */; };
 		3579E4D825B68FC6006BB90F /* ClockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3579E4D725B68FC6006BB90F /* ClockModel.swift */; };
 		3579E4DB25B691DF006BB90F /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3579E4DA25B691DF006BB90F /* WeekView.swift */; };
 		3579E4E525B7F5AF006BB90F /* ClockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3579E4E425B7F5AF006BB90F /* ClockCell.swift */; };
 		3579E4E925B81C9B006BB90F /* ClockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3579E4E825B81C9B006BB90F /* ClockDetailViewController.swift */; };
+		35BFD58B25C3C39300B291C4 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BFD58A25C3C39300B291C4 /* MediaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,11 +31,13 @@
 		3519EFFF25B560D5001FE7B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3519F00225B560D5001FE7B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3519F00425B560D5001FE7B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		35784EDD25C3F25C0082665E /* MissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionViewController.swift; sourceTree = "<group>"; };
 		357909BA25C1474C00C84B76 /* mp3 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = mp3; sourceTree = "<group>"; };
 		3579E4D725B68FC6006BB90F /* ClockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockModel.swift; sourceTree = "<group>"; };
 		3579E4DA25B691DF006BB90F /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		3579E4E425B7F5AF006BB90F /* ClockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockCell.swift; sourceTree = "<group>"; };
 		3579E4E825B81C9B006BB90F /* ClockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockDetailViewController.swift; sourceTree = "<group>"; };
+		35BFD58A25C3C39300B291C4 /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,20 +70,46 @@
 		3519EFF525B560D4001FE7B6 /* Mission_Clock */ = {
 			isa = PBXGroup;
 			children = (
-				3519EFF625B560D4001FE7B6 /* AppDelegate.swift */,
-				3519EFF825B560D4001FE7B6 /* SceneDelegate.swift */,
-				3519EFFA25B560D4001FE7B6 /* ViewController.swift */,
+				35784EE025C3FDFF0082665E /* Controller */,
 				3519EFFC25B560D4001FE7B6 /* Main.storyboard */,
 				3579E4DA25B691DF006BB90F /* WeekView.swift */,
 				3579E4E425B7F5AF006BB90F /* ClockCell.swift */,
-				3579E4D725B68FC6006BB90F /* ClockModel.swift */,
-				3579E4E825B81C9B006BB90F /* ClockDetailViewController.swift */,
 				357909BA25C1474C00C84B76 /* mp3 */,
 				3519EFFF25B560D5001FE7B6 /* Assets.xcassets */,
 				3519F00125B560D5001FE7B6 /* LaunchScreen.storyboard */,
 				3519F00425B560D5001FE7B6 /* Info.plist */,
 			);
 			path = Mission_Clock;
+			sourceTree = "<group>";
+		};
+		35784EE025C3FDFF0082665E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				35784EDD25C3F25C0082665E /* MissionViewController.swift */,
+				35BFD58A25C3C39300B291C4 /* MediaViewController.swift */,
+				3579E4E825B81C9B006BB90F /* ClockDetailViewController.swift */,
+				3519EFFA25B560D4001FE7B6 /* ViewController.swift */,
+				35784EE225C3FE4A0082665E /* Model */,
+				35784EE125C3FE2B0082665E /* Delegate */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		35784EE125C3FE2B0082665E /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				3519EFF625B560D4001FE7B6 /* AppDelegate.swift */,
+				3519EFF825B560D4001FE7B6 /* SceneDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		35784EE225C3FE4A0082665E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3579E4D725B68FC6006BB90F /* ClockModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +186,8 @@
 				3579E4D825B68FC6006BB90F /* ClockModel.swift in Sources */,
 				3579E4DB25B691DF006BB90F /* WeekView.swift in Sources */,
 				3579E4E525B7F5AF006BB90F /* ClockCell.swift in Sources */,
+				35784EDE25C3F25C0082665E /* MissionViewController.swift in Sources */,
+				35BFD58B25C3C39300B291C4 /* MediaViewController.swift in Sources */,
 				3579E4E925B81C9B006BB90F /* ClockDetailViewController.swift in Sources */,
 				3519EFFB25B560D4001FE7B6 /* ViewController.swift in Sources */,
 				3519EFF725B560D4001FE7B6 /* AppDelegate.swift in Sources */,
@@ -307,6 +339,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RMSZ82KT4D;
 				INFOPLIST_FILE = Mission_Clock/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -325,6 +358,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RMSZ82KT4D;
 				INFOPLIST_FILE = Mission_Clock/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
