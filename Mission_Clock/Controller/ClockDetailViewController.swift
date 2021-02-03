@@ -11,6 +11,7 @@ class ClockDetailViewController: UIViewController {
 
     @IBOutlet var weekView: WeekView!
     @IBOutlet var pickerView: UIDatePicker!
+    @IBOutlet var selectTableView: UITableView!
     
     var clockModel = ClockModel()
     
@@ -30,7 +31,7 @@ class ClockDetailViewController: UIViewController {
         
         let dateString = "\(ampm) \(clockModel.time)"
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "a h:m"
+        dateFormatter.dateFormat = "a h:mm"
         if let date = dateFormatter.date(from: dateString){
             pickerView.setDate(date, animated: false)
         }
@@ -39,8 +40,8 @@ class ClockDetailViewController: UIViewController {
     
 
     @IBAction func dismissView(_ sender: Any) { //취소후 뒤로가기
-//        self.performSegue(withIdentifier: "toClockList", sender: self)   //cell 클릭해서들어와서 취소누르면 이걸로
-        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -49,7 +50,7 @@ class ClockDetailViewController: UIViewController {
         formatter.dateFormat = "a"
         clockModel.ampm = formatter.string(from: pickerView.date) == "AM" ? "오전" : "오후"
 
-        formatter.dateFormat = "h:m"
+        formatter.dateFormat = "h:mm"
         clockModel.time = formatter.string(from: pickerView.date)
         
         clockModel.week = weekView.weekDate
@@ -63,6 +64,13 @@ class ClockDetailViewController: UIViewController {
         pickerView = datePickerView as! UIDatePicker
         
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "soundSegue"{
+            //일단 대기
+        }else if segue.identifier == "missionSegue"{
+            
+        }
+    }
     
 }
 
@@ -70,26 +78,49 @@ extension ClockDetailViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { //셀을 클릭했을 때 넘어가게 만드는함수??
+        let cell = tableView.cellForRow(at: indexPath)
+        switch indexPath.row{
+        case 0:
+            performSegue(withIdentifier: "soundSegue", sender: self)
+            cell?.setSelected(true, animated: false)
+            cell?.setSelected(false, animated: false)
+        case 1:
+            performSegue(withIdentifier: "missionSegue", sender: self)
+            cell?.setSelected(true, animated: false)
+            cell?.setSelected(false, animated: false)
+        default:
+            break
+        }
+    }
+    
 }
-extension ClockDetailViewController: UITableViewDataSource{
+extension ClockDetailViewController: UITableViewDataSource{ //tableview에 각각의 cell 의 정보를 추가해주는 함수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var soundCell = tableView.dequeueReusableCell(withIdentifier: "setting")
-        if soundCell == nil {
-            soundCell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "setting")
+        var cell = tableView.dequeueReusableCell(withIdentifier: "setting")
+        if cell == nil {
+            cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "setting")
         }
-        if indexPath.section == 0 {
-            
-            if indexPath.row == 0 {
-                soundCell!.textLabel!.text = "Sound"
-                soundCell!.detailTextLabel!.text = clockModel.sound
-                soundCell!.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
-            }
+       
+        if indexPath.row == 0 {
+            cell!.textLabel!.text = "Sound"
+//                Cell!.detailTextLabel!.text = clockModel.sound
+            cell!.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
+        }
+        else if indexPath.row == 1{
+            cell?.textLabel?.text = "Mission"
+//            Cell?.detailTextLabel?.text = clockModel.mission
+            cell?.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
+        }
            
-        }
-        return soundCell!
+        
+        return cell!
     }
+    
+    
 }

@@ -68,7 +68,7 @@
                                             <outlet property="clockLabel" destination="CEt-BV-5I8" id="5fI-4e-Trf"/>
                                             <outlet property="switchButton" destination="ZoN-oG-r5F" id="VtB-9K-Gvp"/>
                                             <outlet property="weekView" destination="NGx-xe-tfu" id="034-ok-S6o"/>
-                                            <segue destination="4zy-8c-pWp" kind="show" identifier="editshowDetail" id="KKD-Q7-PSh"/>
+                                            <segue destination="4zy-8c-pWp" kind="presentation" identifier="editshowDetail" id="U4j-RD-bWC"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -105,18 +105,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1188" y="94"/>
+            <point key="canvasLocation" x="1187.6923076923076" y="93.838862559241704"/>
         </scene>
         <!--Clock Detail View Controller-->
         <scene sceneID="LIY-Ck-xn9">
             <objects>
                 <viewController id="Jjo-7i-68K" customClass="ClockDetailViewController" customModule="Mission_Clock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="h4b-GP-e0r">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9yd-8L-ADP">
-                                <rect key="frame" x="0.0" y="278" width="390" height="80"/>
+                                <rect key="frame" x="0.0" y="246" width="390" height="80"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="rhe-qi-zL2"/>
@@ -127,21 +127,21 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dtj-vb-jzf" customClass="WeekView" customModule="Mission_Clock" customModuleProvider="target">
-                                <rect key="frame" x="30" y="198" width="330" height="30"/>
+                                <rect key="frame" x="30" y="166" width="330" height="30"/>
                                 <color key="backgroundColor" red="0.99953407049999998" green="0.98835557699999999" blue="0.47265523669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="vs7-b4-aJd"/>
                                 </constraints>
                             </view>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="D9o-oq-YIR">
-                                <rect key="frame" x="163.33333333333337" y="126.33333333333333" width="196.66666666666663" height="53.333333333333329"/>
+                                <rect key="frame" x="163.33333333333337" y="94.333333333333329" width="196.66666666666663" height="53.333333333333329"/>
                                 <locale key="locale" localeIdentifier="ko"/>
                                 <connections>
                                     <action selector="dataPicker:" destination="Jjo-7i-68K" eventType="valueChanged" id="c3s-Lo-pdo"/>
                                 </connections>
                             </datePicker>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MdN-4B-Jk9">
-                                <rect key="frame" x="30" y="138" width="44" height="30"/>
+                                <rect key="frame" x="30" y="106" width="44" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -176,10 +176,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="pickerView" destination="D9o-oq-YIR" id="RWd-sw-OP9"/>
+                        <outlet property="selectTableView" destination="9yd-8L-ADP" id="DGO-aS-agt"/>
                         <outlet property="weekView" destination="dtj-vb-jzf" id="etx-jO-V6L"/>
                         <segue destination="70t-Cr-D4N" kind="unwind" identifier="toClockList" unwindAction="unwindToClockListWithSender:" id="jbt-yk-yas"/>
-                        <segue destination="Dan-OZ-bwk" kind="show" identifier="mediaSelected" id="Dye-A1-GLB"/>
-                        <segue destination="189-sB-y9W" kind="show" identifier="missionSelected" id="gG1-VL-QLC"/>
+                        <segue destination="189-sB-y9W" kind="show" identifier="missionSegue" id="utw-eX-rFR"/>
+                        <segue destination="Dan-OZ-bwk" kind="show" identifier="soundSegue" id="YmM-bP-E7N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="znd-eC-vnK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -192,12 +193,26 @@
             <objects>
                 <viewController id="Dan-OZ-bwk" customClass="MediaViewController" customModule="Mission_Clock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qxh-py-IAZ">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZOi-UO-7Ep">
-                                <rect key="frame" x="0.0" y="88" width="390" height="722"/>
+                                <rect key="frame" x="0.0" y="56" width="390" height="700"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="soundCell" id="69S-zI-mfK">
+                                        <rect key="frame" x="0.0" y="28" width="390" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="69S-zI-mfK" id="as1-2L-W33">
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Dan-OZ-bwk" id="T45-Y2-qm0"/>
+                                    <outlet property="delegate" destination="Dan-OZ-bwk" id="rMg-XQ-eip"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OJb-ud-ves"/>
@@ -213,7 +228,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SCP-7o-lIs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2583" y="692"/>
+            <point key="canvasLocation" x="2582" y="785"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gEw-Nk-2se">
@@ -240,7 +255,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="cEf-qw-9DB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ldX-b5-6rv">
-                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -250,19 +265,33 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EEX-0R-UFD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2464.6153846153848" y="-41.232227488151658"/>
+            <point key="canvasLocation" x="2302" y="49"/>
         </scene>
         <!--Mission View Controller-->
         <scene sceneID="GPQ-0h-JfQ">
             <objects>
                 <viewController id="189-sB-y9W" customClass="MissionViewController" customModule="Mission_Clock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L4l-L2-cqm">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GhZ-Ii-ccL">
-                                <rect key="frame" x="0.0" y="88" width="390" height="722"/>
+                                <rect key="frame" x="0.0" y="56" width="390" height="700"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="missionCell" id="9eD-QX-nU6">
+                                        <rect key="frame" x="0.0" y="28" width="390" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9eD-QX-nU6" id="JA5-LB-Krg">
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="189-sB-y9W" id="M9U-id-DzG"/>
+                                    <outlet property="delegate" destination="189-sB-y9W" id="qWw-ph-CzV"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ifM-Wp-8Da"/>
@@ -282,7 +311,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="QiB-me-KYx"/>
+        <segue reference="U4j-RD-bWC"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="linkColor">

@@ -41,12 +41,13 @@ class ViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let dist = segue.destination as! UINavigationController
+        let controller = dist.topViewController as! ClockDetailViewController
         if segue.identifier == "editshowDetail"{
-            let detailVC = segue.destination as! ClockDetailViewController
+//            let detailVC = segue.destination as! ClockDetailViewController
             let selectedCell = sender as! ClockCell
             if let selectedIndexPath = clockTableView.indexPath(for: selectedCell){
-                detailVC.clockModel = clockList[selectedIndexPath.row]
-//                self.clockTableView.deselectRow(at: selectedIndexPath, animated: true)
+                controller.clockModel = clockList[selectedIndexPath.row]
             }
         }else if segue.identifier == "addshowDetail"{
             

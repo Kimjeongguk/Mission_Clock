@@ -8,6 +8,8 @@
 import UIKit
 
 class MediaViewController: UIViewController {
+    
+    let bellList: [String] = ["복싱벨", "성당종", "소방벨", "응급실", "So Young lkoliks", "x-ray"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,15 +17,24 @@ class MediaViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+}
 
-    /*
-    // MARK: - Navigation
+extension MediaViewController: UITableViewDelegate{
+    
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension MediaViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return bellList.count
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let soundCell = tableView.dequeueReusableCell(withIdentifier: "soundCell", for: indexPath)
+        
+        soundCell.detailTextLabel?.text = bellList[indexPath.row]
+        
+        return soundCell
+    }
+    
+    
 }
