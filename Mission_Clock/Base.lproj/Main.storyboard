@@ -225,8 +225,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="YkU-vr-xOn"/>
+                    <connections>
+                        <segue destination="mKt-c9-WQ3" kind="unwind" identifier="toSound" unwindAction="unwindToSoundWithSender:" id="6Dd-1F-4lG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SCP-7o-lIs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="mKt-c9-WQ3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2582" y="785"/>
         </scene>

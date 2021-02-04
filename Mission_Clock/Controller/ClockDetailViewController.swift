@@ -36,8 +36,15 @@ class ClockDetailViewController: UIViewController {
             pickerView.setDate(date, animated: false)
         }
         
+        clockModel.sound = "성당종"
+        
     }
-    
+    @IBAction func unwindToSound(sender: UIStoryboardSegue){
+        if let soundVC = sender.source as? MediaViewController{
+            clockModel.sound = soundVC.sound
+            selectTableView.reloadData()
+        }
+    }
 
     @IBAction func dismissView(_ sender: Any) { //취소후 뒤로가기
 //        self.navigationController?.popViewController(animated: true)
@@ -96,12 +103,12 @@ extension ClockDetailViewController: UITableViewDelegate{
     }
     
 }
-extension ClockDetailViewController: UITableViewDataSource{ //tableview에 각각의 cell 의 정보를 추가해주는 함수
+extension ClockDetailViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {//tableview에 각각의 cell 의 정보를 추가해주는 함수
         var cell = tableView.dequeueReusableCell(withIdentifier: "setting")
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: "setting")
@@ -109,7 +116,7 @@ extension ClockDetailViewController: UITableViewDataSource{ //tableview에 각�
        
         if indexPath.row == 0 {
             cell!.textLabel!.text = "Sound"
-//                Cell!.detailTextLabel!.text = clockModel.sound
+            cell!.detailTextLabel!.text = clockModel.sound
             cell!.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         }
         else if indexPath.row == 1{

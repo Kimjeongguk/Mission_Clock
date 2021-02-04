@@ -17,8 +17,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let notificationCenter = NotificationCenter.default
-            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+//        let notificationCenter = NotificationCenter.default
+//            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
 
 //        let notificationCenter = NotificationCenter.default
 //            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
@@ -31,9 +31,9 @@ class ViewController: UIViewController {
 //        clockList.append(dummy)
         
     }
-    @objc func appMovedToBackground() {
-        print("App moved to Background!")
-    }
+//    @objc func appMovedToBackground() {
+//        print("App moved to Background!")
+//    }
     override func viewWillAppear(_ animated: Bool) {
         if let selectedIndexRow = self.clockTableView.indexPathForSelectedRow{
             self.clockTableView.deselectRow(at: selectedIndexRow, animated: true)
@@ -44,7 +44,6 @@ class ViewController: UIViewController {
         let dist = segue.destination as! UINavigationController
         let controller = dist.topViewController as! ClockDetailViewController
         if segue.identifier == "editshowDetail"{
-//            let detailVC = segue.destination as! ClockDetailViewController
             let selectedCell = sender as! ClockCell
             if let selectedIndexPath = clockTableView.indexPath(for: selectedCell){
                 controller.clockModel = clockList[selectedIndexPath.row]
