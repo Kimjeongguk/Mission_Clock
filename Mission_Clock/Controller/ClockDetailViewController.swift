@@ -17,8 +17,6 @@ class ClockDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        weekView.delegate = self
         
         weekView.weekDate = clockModel.week
 
@@ -36,12 +34,12 @@ class ClockDetailViewController: UIViewController {
             pickerView.setDate(date, animated: false)
         }
         
-        clockModel.sound = "성당종"
+        
         
     }
     @IBAction func unwindToSound(sender: UIStoryboardSegue){
         if let soundVC = sender.source as? MediaViewController{
-            clockModel.sound = soundVC.sound
+            clockModel.sound = soundVC.clockModel.sound
             selectTableView.reloadData()
         }
     }
@@ -73,6 +71,9 @@ class ClockDetailViewController: UIViewController {
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "soundSegue"{
+            if let controller = segue.destination as? MediaViewController{
+                controller.clockModel = clockModel
+            }
             //일단 대기
         }else if segue.identifier == "missionSegue"{
             
@@ -116,14 +117,14 @@ extension ClockDetailViewController: UITableViewDataSource{
        
         if indexPath.row == 0 {
             cell!.textLabel!.text = "Sound"
-            cell!.detailTextLabel!.text = clockModel.sound
+            cell!.detailTextLabel!.text = clockModel.sound.name
             cell!.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         }
-        else if indexPath.row == 1{
-            cell?.textLabel?.text = "Mission"
-//            Cell?.detailTextLabel?.text = clockModel.mission
-            cell?.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
-        }
+//        else if indexPath.row == 1{
+//            cell?.textLabel?.text = "Mission"
+////            Cell?.detailTextLabel?.text = clockModel.mission
+//            cell?.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
+//        }
            
         
         return cell!

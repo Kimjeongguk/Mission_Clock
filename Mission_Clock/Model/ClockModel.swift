@@ -23,7 +23,7 @@ class ClockModel: NSObject, NSCoding, NSSecureCoding {
         let ampm = coder.decodeObject(forKey: "ampm") as! String
         let time = coder.decodeObject(forKey: "time") as! String
         let week = coder.decodeObject(forKey: "week") as! [Bool]
-        let sound = coder.decodeObject(forKey: "sound") as! String
+        let sound = coder.decodeObject(forKey: "sound") as! SoundModel
         self.init(ampm: ampm, time: time, week: week, sound: sound)
     }
     
@@ -31,18 +31,18 @@ class ClockModel: NSObject, NSCoding, NSSecureCoding {
     var ampm: String
     var time: String
     var week: [Bool]
-    var sound: String
+    var sound: SoundModel
     
     
     override init(){
         
         self.ampm = ""
-        self.sound = ""
+        self.sound = SoundModel(id: 1, name: I.Sound.s1, duration: 2.06)
         self.time = ""
         self.week = [false, false, false, false, false, false, false]
     }
     
-    init(ampm: String, time: String, week: [Bool], sound: String) {
+    init(ampm: String, time: String, week: [Bool], sound: SoundModel) {
         
         self.ampm = ampm
         self.time = time
