@@ -19,8 +19,6 @@ class MediaViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -33,8 +31,16 @@ class MediaViewController: UIViewController {
 
 extension MediaViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.accessoryType = .checkmark
         soundManager.play(this: sound.sounds[indexPath.row])
+        
         clockModel.sound = sound.sounds[indexPath.row]
+    }
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.accessoryType = .none
+        }
     }
 }
 
@@ -51,6 +57,11 @@ extension MediaViewController: UITableViewDataSource{
         }
         
         cell!.textLabel!.text = sound.sounds[indexPath.row].name
+        if indexPath.row == clockModel.sound.id-1{
+            cell?.accessoryType = .checkmark
+            cell?.setSelected(false, animated: false)
+            
+        }
         
         return cell!
     }
