@@ -6,14 +6,17 @@
 //
 
 import UIKit
+import AudioToolbox
+import AVFoundation
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    var alarms: AlarmSchedulerDelegate = Scheduler()
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        alarms.authorization()
         return true
     }
 
@@ -31,22 +34,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
-//    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-//        if application.applicationState == UIApplication.State.active {
-//            print("foreground")
-//        } else {
-//            print("background")
-//        }
+    
+//    func userNotificationCenter(_ center: UNUserNotificationCenter,
+//                                    willPresent notification: UNNotification,
+//                                    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+//
+//        completionHandler(UNNotificationPresentationOptions.sound)
 //    }
-    func applicationWillResignActive(_ application: UIApplication) {
-        print("이해중...")
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+       
+       completionHandler()
     }
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        print("background")
-    }
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        print("foreground")
+    
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,
+             withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        completionHandler(.alert)
     }
 
 }
+
 

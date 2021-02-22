@@ -10,30 +10,20 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet var clockTableView: UITableView!
-    
-    
+    var alarm: AlarmSchedulerDelegate = Scheduler()
+    var alarmScheduler: AlarmSchedulerDelegate = Scheduler()
     var clockList: [ClockModel] = []
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let notificationCenter = NotificationCenter.default
-//            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-
-//        let notificationCenter = NotificationCenter.default
-//            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
-
-        
         if let loadClocks = loadClocks(){
             self.clockList = loadClocks
         }
 //        let dummy = ClockModel.init(ampm: "오후", time: "3:33", week: [true,true,true,true,true,true,true])
 //        clockList.append(dummy)
-        
     }
-//    @objc func appMovedToBackground() {
-//        print("App moved to Background!")
-//    }
+    
     override func viewWillAppear(_ animated: Bool) {
         if let selectedIndexRow = self.clockTableView.indexPathForSelectedRow{
             self.clockTableView.deselectRow(at: selectedIndexRow, animated: true)
@@ -93,10 +83,13 @@ class ViewController: UIViewController {
             guard let archiveURL = documentDirectory?.appendingPathComponent("clocks") else{
                 return
             }
-            
+            for clock in self.clockList{
+                self.alarm.scheduleNotification(clock.date, onWeekdaysForNotify: clock.week, soundName: clock.sound.name)
+            }
             do{
                 let archiveDate = try NSKeyedArchiver.archivedData(withRootObject: self.clockList, requiringSecureCoding: true)
                 try archiveDate.write(to: archiveURL)
+                
             }catch{
                 print("애러 ===>> \(error)")
             }
@@ -132,16 +125,54 @@ extension ViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let clockCell = tableView.dequeueReusableCell(withIdentifier: "clockCell", for: indexPath) as! ClockCell
-        clockCell.apmLabel.text = clockList[indexPath.row].ampm
-        clockCell.clockLabel.text = clockList[indexPath.row].time
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "a"
+        
+        clockCell.apmLabel.text = dateFormatter.string(from: clockList[indexPath.row].date) == "AM" ? "오전" : "오후"
+        dateFormatter.dateFormat = "h:mm"
+        clockCell.clockLabel.text = dateFormatter.string(from: clockList[indexPath.row].date)
         
         clockCell.weekView.isUserInteractionEnabled = false
         clockCell.weekView.weekDate = clockList[indexPath.row].week
-
+        
+        clockCell.switchButton.tag = indexPath.row
+        clockCell.switchButton.isOn = clockList[indexPath.row].enable
+        clockCell.switchButton.addTarget(self, action: #selector(switchTap), for: UIControl.Event.valueChanged)
         
         return clockCell
     }
+    
+    @objc func switchTap(_ sender: UISwitch){
+        clockList[sender.tag].enable = !clockList[sender.tag].enable
+        saveClocks()
+    }
 }
 
+
+extension UIViewController: UNUserNotificationCenterDelegate {
+//    앱이 foreground에서 실행될 때 로컬 알림이 사용자에게 표시되도록하려면 UNUserNotificationCenterDelegate 의 함수 중 하나를 구현해야합니다. 바로 밑에 함수
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Swift.Void) {
+        completionHandler( [.badge, .sound])
+    }
+    
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        let userInfo = response.notification.request.content.userInfo
+        if let additionalData = userInfo["additionalData"] as? String {
+            print("Additional data: \(additionalData)")
+        }
+        
+        switch response.actionIdentifier {
+        case UNNotificationDefaultActionIdentifier:
+            print("User tapped on message itself rather than on an Action button") // 알람을 클릭하면 실행됨
+            
+        default:
+            break
+        }
+        
+        completionHandler()
+    }
+ 
+}
 
 

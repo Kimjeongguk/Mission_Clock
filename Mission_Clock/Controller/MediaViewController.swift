@@ -10,7 +10,6 @@ import AVFoundation
 
 class MediaViewController: UIViewController {
     
-    
     @IBOutlet var soundTableView: UITableView!
     
     var sound = SoundDB()
@@ -59,8 +58,7 @@ extension MediaViewController: UITableViewDataSource{
         cell!.textLabel!.text = sound.sounds[indexPath.row].name
         if indexPath.row == clockModel.sound.id-1{
             cell?.accessoryType = .checkmark
-            cell?.setSelected(false, animated: false)
-            
+            tableView.selectRow(at:  IndexPath(row: indexPath.row, section: 0), animated: false, scrollPosition: .none)
         }
         
         return cell!

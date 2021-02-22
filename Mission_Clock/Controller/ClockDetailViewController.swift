@@ -20,19 +20,19 @@ class ClockDetailViewController: UIViewController {
         
         weekView.weekDate = clockModel.week
 
-        var ampm = ""
-        if clockModel.ampm == "오전"{
-            ampm = "AM"
-        }else if clockModel.ampm == "오후"{
-            ampm = "PM"
-        }
-        
-        let dateString = "\(ampm) \(clockModel.time)"
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "a h:mm"
-        if let date = dateFormatter.date(from: dateString){
-            pickerView.setDate(date, animated: false)
-        }
+//        var ampm = ""
+//        if clockModel.ampm == "오전"{
+//            ampm = "AM"
+//        }else if clockModel.ampm == "오후"{
+//            ampm = "PM"
+//        }
+//
+//        let dateString = "\(ampm) \(clockModel.time)"
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "a h:mm"
+//        if let date = dateFormatter.date(from: dateString){
+        pickerView.setDate(clockModel.date, animated: false)
+//        }
         
         
         
@@ -51,14 +51,17 @@ class ClockDetailViewController: UIViewController {
     
     
     @IBAction func saveButton(_ sender: Any) { // 데이터 저장해서 리스트에 추가
-        let formatter = DateFormatter()
-        formatter.dateFormat = "a"
-        clockModel.ampm = formatter.string(from: pickerView.date) == "AM" ? "오전" : "오후"
-
-        formatter.dateFormat = "h:mm"
-        clockModel.time = formatter.string(from: pickerView.date)
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "a"
+//        clockModel.ampm = formatter.string(from: pickerView.date) == "AM" ? "오전" : "오후"
+//
+//        formatter.dateFormat = "h:mm"
+//        clockModel.time = formatter.string(from: pickerView.date)
+        clockModel.date = pickerView.date
         
         clockModel.week = weekView.weekDate
+        
+        clockModel.enable = true
         
         self.performSegue(withIdentifier: "toClockList", sender: self)
     }
@@ -66,7 +69,7 @@ class ClockDetailViewController: UIViewController {
     @IBAction func dataPicker(_ sender: Any) { //datepickerview에 값저장
         let datePickerView = sender
         
-        pickerView = datePickerView as! UIDatePicker
+        pickerView = (datePickerView as! UIDatePicker)
         
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
