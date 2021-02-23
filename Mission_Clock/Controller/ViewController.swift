@@ -17,6 +17,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
         if let loadClocks = loadClocks(){
             self.clockList = loadClocks
         }
@@ -83,12 +85,10 @@ class ViewController: UIViewController {
             guard let archiveURL = documentDirectory?.appendingPathComponent("clocks") else{
                 return
             }
-            for clock in self.clockList{
-                self.alarm.scheduleNotification(clock.date, onWeekdaysForNotify: clock.week, soundName: clock.sound.name)
-            }
             do{
                 let archiveDate = try NSKeyedArchiver.archivedData(withRootObject: self.clockList, requiringSecureCoding: true)
                 try archiveDate.write(to: archiveURL)
+                self.alarm.saveNotifications(clockList: self.clockList)
                 
             }catch{
                 print("애러 ===>> \(error)")
@@ -146,15 +146,29 @@ extension ViewController: UITableViewDataSource{
         clockList[sender.tag].enable = !clockList[sender.tag].enable
         saveClocks()
     }
+    
 }
 
 
-extension UIViewController: UNUserNotificationCenterDelegate {
+extension ViewController: UNUserNotificationCenterDelegate {
+    
 //    앱이 foreground에서 실행될 때 로컬 알림이 사용자에게 표시되도록하려면 UNUserNotificationCenterDelegate 의 함수 중 하나를 구현해야합니다. 바로 밑에 함수
     public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Swift.Void) {
         completionHandler( [.badge, .sound])
+        for index in 0..<clockList.count{
+            if notification.date == clockList[index].date{
+                if clockList[index].week.filter({ $0 == true }).isEmpty{
+                    clockList[index].enable = false
+                    clockTableView.reloadData()
+                    saveClocks()
+                    print("test")
+                    break
+                }
+            }
+        }
     }
     
+    // 사용자가 응용 프로그램을 열거나 알림을 해제하거나 UN Notification Action을 선택하여 알림에 응답하면 메소드가 대리인에게 호출됩니다
     public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         let userInfo = response.notification.request.content.userInfo
@@ -162,6 +176,20 @@ extension UIViewController: UNUserNotificationCenterDelegate {
             print("Additional data: \(additionalData)")
         }
         
+        
+        
+        for index in 0..<clockList.count{
+            if response.notification.date == clockList[index].date{
+                print("sibal")
+                if clockList[index].week.filter({ $0 == true }).isEmpty{
+                    clockList[index].enable = false
+                    clockTableView.reloadData()
+                    saveClocks()
+                    print("testback")
+                    break
+                }
+            }
+        }
         switch response.actionIdentifier {
         case UNNotificationDefaultActionIdentifier:
             print("User tapped on message itself rather than on an Action button") // 알람을 클릭하면 실행됨

@@ -10,4 +10,6 @@ import UIKit
 protocol AlarmSchedulerDelegate{
     func authorization()
     func scheduleNotification(_ date: Date, onWeekdaysForNotify weekdays: [Bool], soundName: String)
+    func saveNotifications(clockList: [ClockModel])
+    
 }
