@@ -90,6 +90,7 @@
 		3519EFF525B560D4001FE7B6 /* Mission_Clock */ = {
 			isa = PBXGroup;
 			children = (
+				35278B6D25E614CA0080713F /* Cell */,
 				356668CA25DBAAAA00A0E6FC /* Protocol */,
 				35784EE125C3FE2B0082665E /* MissionAram */,
 				35784EE225C3FE4A0082665E /* Model */,
@@ -97,10 +98,7 @@
 				35274EBD25D0FA9F00174418 /* Managers */,
 				35274ED425D10A6600174418 /* Storyboards */,
 				35274EC625D1067A00174418 /* Resourse */,
-				3579E4E425B7F5AF006BB90F /* ClockCell.swift */,
-				3579E4DA25B691DF006BB90F /* WeekView.swift */,
 				3519EFFF25B560D5001FE7B6 /* Assets.xcassets */,
-				3519F00125B560D5001FE7B6 /* LaunchScreen.storyboard */,
 				3519F00425B560D5001FE7B6 /* Info.plist */,
 			);
 			path = Mission_Clock;
@@ -137,9 +135,18 @@
 		35274ED425D10A6600174418 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				3519F00125B560D5001FE7B6 /* LaunchScreen.storyboard */,
 				3519EFFC25B560D4001FE7B6 /* Main.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		35278B6D25E614CA0080713F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3579E4E425B7F5AF006BB90F /* ClockCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		356668CA25DBAAAA00A0E6FC /* Protocol */ = {
@@ -156,6 +163,7 @@
 				35784EDD25C3F25C0082665E /* MissionViewController.swift */,
 				35BFD58A25C3C39300B291C4 /* MediaViewController.swift */,
 				3579E4E825B81C9B006BB90F /* ClockDetailViewController.swift */,
+				3579E4DA25B691DF006BB90F /* WeekView.swift */,
 				3519EFFA25B560D4001FE7B6 /* ViewController.swift */,
 			);
 			path = Controller;

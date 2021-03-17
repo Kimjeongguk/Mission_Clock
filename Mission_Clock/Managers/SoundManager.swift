@@ -31,6 +31,19 @@ struct SoundManager{
         }
         
     }
+    mutating func alarmPlay(this sound: SoundModel){
+        do{
+            guard let url = Bundle.main.url(forResource: sound.name, withExtension: ".mp3")else{
+                return
+            }
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.numberOfLoops = -1
+            player?.play()
+            self.sound = sound
+        }catch let error{
+            print(error.localizedDescription)
+        }
+    }
     mutating func stop(){
         player?.stop()
         self.sound = nil

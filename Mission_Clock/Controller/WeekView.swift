@@ -37,8 +37,6 @@ class WeekView: UIStackView {
         
         self.spacing = (self.bounds.size.width - (self.bounds.size.height * 7)) / 8
         
-        
-        
         for index in 0..<7{
             
             let button = UIButton()

@@ -128,7 +128,6 @@
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dtj-vb-jzf" customClass="WeekView" customModule="Mission_Clock" customModuleProvider="target">
                                 <rect key="frame" x="30" y="166" width="330" height="30"/>
-                                <color key="backgroundColor" red="0.99953407049999998" green="0.98835557699999999" blue="0.47265523669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="vs7-b4-aJd"/>
                                 </constraints>

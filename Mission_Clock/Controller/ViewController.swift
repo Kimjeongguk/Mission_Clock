@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet var clockTableView: UITableView!
     var alarm: AlarmSchedulerDelegate = Scheduler()
     var alarmScheduler: AlarmSchedulerDelegate = Scheduler()
+    var soundManager = SoundManager()
     var clockList: [ClockModel] = []
     
 
@@ -151,10 +152,28 @@ extension ViewController: UITableViewDataSource{
 
 
 extension ViewController: UNUserNotificationCenterDelegate {
-    
 //    앱이 foreground에서 실행될 때 로컬 알림이 사용자에게 표시되도록하려면 UNUserNotificationCenterDelegate 의 함수 중 하나를 구현해야합니다. 바로 밑에 함수
     public func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Swift.Void) {
-        completionHandler( [.badge, .sound])
+        let content = UNMutableNotificationContent()
+        content.title = "알람"
+        content.body = ""
+        content.categoryIdentifier = "alarm"
+        content.sound = UNNotificationSound.default
+        
+        content.userInfo = ["customData": "fizzbuzz"]
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+
+        let request = UNNotificationRequest(identifier: notification.request.identifier, content: content, trigger: trigger)
+        
+        
+        DispatchQueue.global(qos: .default).async {
+            DispatchQueue.main.async {
+                center.add(request)
+            }
+            sleep(3)
+        }
+    
         for index in 0..<clockList.count{
             if notification.date == clockList[index].date{
                 if clockList[index].week.filter({ $0 == true }).isEmpty{
@@ -162,12 +181,12 @@ extension ViewController: UNUserNotificationCenterDelegate {
                     clockTableView.reloadData()
                     saveClocks()
                     print("test")
-                    break
                 }
             }
         }
+        
+        completionHandler( [.badge, .sound])
     }
-    
     // 사용자가 응용 프로그램을 열거나 알림을 해제하거나 UN Notification Action을 선택하여 알림에 응답하면 메소드가 대리인에게 호출됩니다
     public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
@@ -175,18 +194,29 @@ extension ViewController: UNUserNotificationCenterDelegate {
         if let additionalData = userInfo["additionalData"] as? String {
             print("Additional data: \(additionalData)")
         }
+        let content = UNMutableNotificationContent()
+        content.title = "알람"
+        content.body = ""
+        content.sound = UNNotificationSound.default
+        content.userInfo = ["customData": "fizzbuzz"]
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        let request = UNNotificationRequest(identifier: response.notification.request.identifier, content: content, trigger: trigger)
+        
+        DispatchQueue.global(qos: .default).async {
+            DispatchQueue.main.async {
+                center.add(request)
+            }
+            sleep(3)
+        }
         
         
-        
-        for index in 0..<clockList.count{
+        for index in 0..<clockList.count{ // clockList를 reload해줌
             if response.notification.date == clockList[index].date{
-                print("sibal")
                 if clockList[index].week.filter({ $0 == true }).isEmpty{
                     clockList[index].enable = false
                     clockTableView.reloadData()
                     saveClocks()
-                    print("testback")
-                    break
                 }
             }
         }

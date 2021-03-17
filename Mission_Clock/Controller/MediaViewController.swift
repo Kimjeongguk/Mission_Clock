@@ -32,7 +32,7 @@ extension MediaViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.accessoryType = .checkmark
-        soundManager.play(this: sound.sounds[indexPath.row])
+        soundManager.alarmPlay(this: sound.sounds[indexPath.row])
         
         clockModel.sound = sound.sounds[indexPath.row]
     }
